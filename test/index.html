@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Header Sticky Component</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <style>
+            body {
+                height: 1660px;
+                margin: 0;
+            }
+
+            #header1,
+            #header2,
+            #header3,
+            #header4 {
+                line-height: 70px;
+                margin: 0;
+                color: #FFF;
+                padding: 0 10px;
+            }
+
+            #header1 {
+                background-color: #c0392b;
+            }
+
+            #header2 {
+                background-color: #2980b9;
+            }
+
+            #header3 {
+                background-color: #9b59b6;
+            }
+
+            #header4 {
+                background-color: #2ecc71;
+            }
+
+            .fixed {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1 id="header1">1. Lorem ipsum dolor sit amet</h1>
+        <h2>Lorem ipsum dolor sit amet!</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget orci gravida, faucibus massa sit amet, laoreet risus. Etiam imperdiet justo consectetur, tempus mi consequat, porta diam. Pellentesque pulvinar lacinia nisi, vel egestas dui condimentum et. Etiam non tincidunt augue. Sed ipsum odio, tristique non gravida non, consequat in lacus. Suspendisse aliquam faucibus massa vitae fermentum. Ut in risus eget sapien adipiscing rhoncus eu at dui. Integer dolor lorem, condimentum ut magna nec, lacinia rutrum tellus.</p>
+        <p>Fusce aliquet sed lacus nec porta. Vestibulum consectetur, dui eget tristique elementum, urna purus tempus velit, non malesuada eros enim sit amet quam. Nunc ullamcorper pretium lectus ut sagittis. Pellentesque vestibulum dui quis ultricies consequat. Duis consectetur sagittis purus vel convallis. Curabitur vehicula neque in rutrum egestas. Nulla ullamcorper ac tortor vitae tempus. Duis tempus scelerisque scelerisque. Etiam semper erat nec arcu fermentum elementum. Ut sed tincidunt elit, eu ultricies purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce id libero volutpat velit hendrerit varius. Integer pretium, urna eget scelerisque congue, magna nulla dictum erat, nec hendrerit lectus dolor non velit.</p>
+
+        <h1 id="header2">2. Sed posuere varius nisl et varius</h1>
+        <h2>Sed posuere varius nisl et varius!</h2>
+        <p>Sed posuere varius nisl et varius. Maecenas eros sem, elementum ac leo ut, molestie ullamcorper lorem. Fusce ullamcorper bibendum venenatis. Nullam ligula neque, semper sit amet vulputate vel, ultrices non mi. Nunc viverra ante turpis, sit amet gravida ligula molestie et. Suspendisse mollis, nisi a pellentesque iaculis, lectus nisi interdum lorem, vitae pulvinar elit leo ut risus. Fusce ac orci varius, laoreet risus vel, molestie erat. In hac habitasse platea dictumst. Donec molestie velit ut lorem lacinia ullamcorper. Integer posuere nibh dolor. Praesent tristique ipsum in ligula pellentesque egestas.</p>
+        <p>Nam interdum vel dui sed rhoncus. Nullam aliquet risus porttitor, dapibus sapien vitae, posuere elit. Proin sapien odio, aliquam quis arcu at, ullamcorper placerat magna. Phasellus tincidunt mauris eu fringilla ultrices. Nullam tincidunt, leo a lacinia consequat, erat enim auctor elit, vel tristique felis urna vitae sem. Aliquam erat volutpat. Quisque vulputate ullamcorper metus ut eleifend. Duis tristique ante velit, non tincidunt tellus malesuada vitae. Morbi eu nisl sed erat ultricies tempor quis venenatis lectus. Ut posuere massa non ipsum dapibus faucibus. Integer non erat placerat, sollicitudin sem ut, dapibus dui. Proin non rhoncus tortor, sit amet pretium quam. Nulla porta porttitor justo eu eleifend. Suspendisse potenti.</p>
+
+        <h1 id="header3">3. Aenean ut libero eget sapien tempus elementum</h1>
+        <h2>Aenean ut libero eget sapien tempus elementum!</h2>
+        <p>Aenean ut libero eget sapien tempus elementum. Etiam mi enim, aliquam non consectetur rutrum, dictum eu mi. Nunc id nunc id tellus accumsan facilisis. Sed leo leo, semper et enim porttitor, tristique blandit risus. Morbi vulputate eleifend pretium. Aenean malesuada magna et accumsan malesuada. Quisque ut massa hendrerit, laoreet odio at, euismod elit. Phasellus facilisis semper nibh, vel accumsan ipsum dignissim eget. Suspendisse et sapien lacinia, mollis ante vel, condimentum diam. Donec sed massa id eros aliquam faucibus. Proin hendrerit mollis elementum. Sed tempor nisi a massa placerat eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras non iaculis dui.</p>
+        <p>In in nisi in tellus imperdiet commodo at quis libero. Pellentesque sed sapien elit. Praesent lacinia est iaculis aliquet euismod. Cras dictum nibh nec ultrices tempus. Duis turpis massa, mollis ac justo eu, rhoncus eleifend diam. Vestibulum venenatis tortor et nibh consectetur, in condimentum mi feugiat. Proin ultrices pharetra libero, sit amet ultricies nisl laoreet quis.</p>
+
+        <h1 id="header4">4. Nulla a felis semper</h1>
+        <h2>Nulla a felis semper!</h2>
+        <p>Nulla a felis semper, dictum lorem sagittis, euismod ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque consequat dolor vel metus varius consequat. Sed elementum dapibus convallis. Vivamus libero lectus, fermentum a urna eget, fringilla malesuada justo. Suspendisse tempor rhoncus quam in pretium. Ut hendrerit nisi vel ultricies euismod. Nulla ac quam ornare, imperdiet lacus eget, euismod tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+        <p>Morbi suscipit in ante non dapibus. Sed sit amet lacus nulla. Integer laoreet nisi sit amet ante accumsan, ac accumsan odio rhoncus. Nullam luctus ligula at ipsum bibendum, et adipiscing justo gravida. Vestibulum eleifend tincidunt lobortis. Nam egestas accumsan enim, vitae tempor metus. Nunc congue mattis nunc, ac volutpat urna convallis vitae.</p>
+
+        <script src="build/build.js"></script>
+        <script>
+            var sticky = require('sticky'),
+                t1 = document.getElementById('header1'),
+                t2 = document.getElementById('header2'),
+                t3 = document.getElementById('header3'),
+                t4 = document.getElementById('header4');
+
+            // sticky(t1, 0);
+            // sticky(t2, 70);
+            // sticky(t3, (70*2));
+            // sticky(t4, (70*3));
+
+            sticky(t1);
+            sticky(t2);
+            sticky(t3);
+            sticky(t4);
+        </script>
+    </body>
+</html>
