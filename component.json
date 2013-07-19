@@ -1,0 +1,22 @@
+{
+  "name": "sticky",
+  "repo": "pazguille/sticky",
+  "description": "Elements stick to the top of the viewport when the user scrolls down.",
+  "version": "0.0.1",
+  "author": "Guille Paz <guille87paz@gmail.com>",
+  "twitter": "@pazguille",
+  "keywords": [
+    "sticky",
+    "position",
+    "scroll"
+  ],
+  "dependencies": {},
+  "development": {
+    "bestander/jasmine": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
