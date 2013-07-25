@@ -178,7 +178,7 @@
      */
     (function updateloop() {
         requestAnimFrame(updateloop);
-        update();
+        update(sticky);
     }());
 
     /**
