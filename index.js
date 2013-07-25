@@ -23,16 +23,17 @@ function update() {
 
     sticky.collection.forEach(checkPosition);
 
-    // Change status
+    // Change scroll status
     scrolled = false;
 }
 
 function checkPosition(sticky) {
     var offsetTop = sticky.el.getBoundingClientRect().top;
 
-    if (!(offsetTop >= (0 + sticky.boundary))) {
+    if (!sticky.fixed && offsetTop <= 0) {
+
         sticky.el.style.top = sticky.boundary + 'px';
-        sticky.el.className = 'fixed';
+        sticky.el.className = sticky.el.className + ' fixed';
 
         sticky.fixed = true;
 
@@ -44,7 +45,7 @@ function checkPosition(sticky) {
     }
 
     if (sticky.fixed && ((win.pageYOffset || docEl.scrollTop) + sticky.boundary) < sticky.originalOffsetTop) {
-        sticky.el.className = '';
+        sticky.el.className = sticky.el.className.replace(/fixed/, '');
         sticky.fixed = false;
     }
 }
@@ -52,40 +53,84 @@ function checkPosition(sticky) {
 /**
  * sticky factory
  */
-function sticky(el, boundary, fn) {
+function sticky(nodes, options) {
 
-    sticky.collection.push(new Sticky(el, boundary, fn));
+    nodes = nodes || doc.querySelectorAll('[data-sticky]');
+
+    if (nodes.length === undefined) {
+         nodes = [nodes];
+    }
+
+    var i = 0,
+        len = nodes.length,
+        e;
+
+    for (i; i < len; i += 1) {
+        sticky.collection.push(new Sticky(nodes[i], options));
+    }
 
     return this;
 }
 
-sticky.collection = []
+sticky.collection = [];
 
+sticky.destroy = function (node) {
+
+    var i = 0,
+        len = sticky.collection.length,
+        instance;
+
+    for (i; i < len; i += 1) {
+        instance = sticky.collection[i];
+
+        if (instance.el === node) {
+            instance.destroy();
+            sticky.collection.splice(i, 1);
+            return;
+        }
+
+    }
+};
 
 /**
  * Sticky Class
  */
-function Sticky(el, boundary, fn) {
-   this.init(el, boundary, fn);
+function Sticky(el, options) {
+
+    if (el === undefined) {
+        throw new Error('"sticky(el, [options])": It must receive an element.');
+    }
+
+    this.initialize(el, options);
 
     return this;
 };
 
-Sticky.prototype.init = function (el, boundary, fn) {
+Sticky.prototype.initialize = function (el, options) {
 
-    if (el === undefined) {return;}
+    options = options || {};
 
-    if (typeof boundary === 'function') {
-        fn = boundary;
-        boundary = 0;
+    if (typeof options === 'number') {
+        var num = options;
+        options = {
+            'boundary': num
+        };
     }
 
+    if (typeof options === 'function') {
+        var fn = options;
+        options = {
+            'fn': fn
+        };
+    }
+
+    // Config
     this.el = el;
-    this.boundary = boundary || 0;
-    this.fn = fn;
+    this.boundary = options.boundary || 0;
+    this.fn = options.fn;
 
+    // Defaults
     this.fixed = false;
-
     this.originalOffsetTop = this.el.getBoundingClientRect().top;
 
     this.wrap();
@@ -94,19 +139,32 @@ Sticky.prototype.init = function (el, boundary, fn) {
 }
 
 Sticky.prototype.wrap = function () {
-    var parent = this.el.parentNode,
-        wrapper = doc.createElement('div');
+    var parent = this.el.parentNode;
 
-    wrapper.style.width = this.el.offsetWidth + 'px';
-    wrapper.style.height = this.el.offsetHeight + 'px';
-    wrapper.style.position = 'relative';
-    wrapper.style.zIndex = (zIndex += 1);
+    this.wrapper = doc.createElement('div');
 
-    parent.insertBefore(wrapper, this.el);
-    wrapper.appendChild(this.el);
+    this.wrapper.style.width = this.el.offsetWidth + 'px';
+    this.wrapper.style.height = this.el.offsetHeight + 'px';
+    this.wrapper.style.position = 'relative';
+    this.wrapper.style.zIndex = (zIndex += 1);
+
+    parent.insertBefore(this.wrapper, this.el);
+    this.wrapper.appendChild(this.el);
 
     return this;
 };
+
+
+Sticky.prototype.destroy = function () {
+    var parent = this.wrapper.parentNode;
+
+    this.el.className = this.el.className.replace(/fixed/, '');
+    this.fixed = false;
+
+    parent.insertBefore(this.el, this.wrapper);
+    parent.removeChild(this.wrapper);
+};
+
 
 /**
  * Expose Sticky
