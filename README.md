@@ -52,6 +52,7 @@ sticky(node, {
    boundary: 200,
    fn: function () {}
 });
+```
 
 ### sticky.destroy(el)
 Elements stick to the top of the viewport when the user scrolls down.
