@@ -45,7 +45,7 @@ sticky(node, function () {});
 Elements stick to the top of the viewport when the user scrolls down.
 - `el`: (node || nodeList) [optional] A given node or nodeList.
 - `options.boundary`: (number) [optional] Pixels from top of window to the element's top.
-- `options.fn`: (function) [optional] is ` Function to be executed when the element will be fixed.
+- `options.fn`: (function) [optional] Function to be executed when the element will be fixed.
 
 ### sticky.remove(el)
 Elements stick to the top of the viewport when the user scrolls down.
