@@ -1,4 +1,3 @@
-
 /**
  * Require the given path.
  *
@@ -207,103 +206,161 @@ var win = window,
     scrolled = false,
     zIndex = 0,
     requestAnimFrame = (function () {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
+        return win.requestAnimationFrame ||
+            win.webkitRequestAnimationFrame ||
+            win.mozRequestAnimationFrame ||
             function (callback) {
-                window.setTimeout(callback, 1000 / 60);
+                win.setTimeout(callback, 1000 / 60);
             };
     }());
-
-function update() {
-    // No changing, exit
-    if (!scrolled) { return; }
-
-    sticky.collection.forEach(checkPosition);
-
-    // Change status
-    scrolled = false;
-}
 
 function checkPosition(sticky) {
     var offsetTop = sticky.el.getBoundingClientRect().top;
 
-    if (!(offsetTop >= (0 + sticky.boundary))) {
+    if (!sticky.fixed && offsetTop <= 0) {
+
         sticky.el.style.top = sticky.boundary + 'px';
-        sticky.el.className = 'fixed';
+        sticky.el.className = sticky.el.className + ' fixed';
 
         sticky.fixed = true;
 
         if (sticky.fn) {
-            setTimeout(function () {
+            win.setTimeout(function () {
                 sticky.fn.call(sticky.el);
             }, 0);
         }
     }
 
     if (sticky.fixed && ((win.pageYOffset || docEl.scrollTop) + sticky.boundary) < sticky.originalOffsetTop) {
-        sticky.el.className = '';
+        sticky.el.className = sticky.el.className.replace(/fixed/, '');
         sticky.fixed = false;
     }
 }
 
-/**
- * sticky factory
- */
-function sticky(el, boundary, fn) {
+function update(sticky) {
+    // No changing, exit
+    if (!scrolled) { return; }
 
-    sticky.collection.push(new Sticky(el, boundary, fn));
+    sticky.collection.forEach(checkPosition);
 
-    return this;
+    // Change scroll status
+    scrolled = false;
 }
-
-sticky.collection = []
-
 
 /**
  * Sticky Class
  */
-function Sticky(el, boundary, fn) {
-   this.init(el, boundary, fn);
+function Sticky(el, options) {
 
-    return this;
-};
-
-Sticky.prototype.init = function (el, boundary, fn) {
-
-    if (el === undefined) {return;}
-
-    if (typeof boundary === 'function') {
-        fn = boundary;
-        boundary = 0;
+    if (el === undefined) {
+        throw new Error('"sticky(el, [options])": It must receive an element.');
     }
 
+    this.initialize(el, options);
+
+    return this;
+}
+
+Sticky.prototype.initialize = function (el, options) {
+
+    var num, fn;
+    options = options || {};
+
+    if (typeof options === 'number') {
+        num = options;
+        options = {
+            'boundary': num
+        };
+    }
+
+    if (typeof options === 'function') {
+        fn = options;
+        options = {
+            'fn': fn
+        };
+    }
+
+    // Config
     this.el = el;
-    this.boundary = boundary || 0;
-    this.fn = fn;
+    this.boundary = options.boundary || 0;
+    this.fn = options.fn;
 
+    // Defaults
     this.fixed = false;
-
     this.originalOffsetTop = this.el.getBoundingClientRect().top;
 
     this.wrap();
 
     return this;
-}
+};
 
 Sticky.prototype.wrap = function () {
-    var parent = this.el.parentNode,
-        wrapper = doc.createElement('div');
+    var parent = this.el.parentNode;
 
-    wrapper.style.width = this.el.offsetWidth + 'px';
-    wrapper.style.height = this.el.offsetHeight + 'px';
-    wrapper.style.position = 'relative';
-    wrapper.style.zIndex = (zIndex += 1);
+    this.wrapper = doc.createElement('div');
 
-    parent.insertBefore(wrapper, this.el);
-    wrapper.appendChild(this.el);
+    this.wrapper.style.width = this.el.offsetWidth + 'px';
+    this.wrapper.style.height = this.el.offsetHeight + 'px';
+    this.wrapper.style.position = 'relative';
+    zIndex += 1;
+    this.wrapper.style.zIndex = zIndex;
+
+    parent.insertBefore(this.wrapper, this.el);
+    this.wrapper.appendChild(this.el);
 
     return this;
+};
+
+
+Sticky.prototype.destroy = function () {
+    var parent = this.wrapper.parentNode;
+
+    this.el.className = this.el.className.replace(/fixed/, '');
+    this.fixed = false;
+
+    parent.insertBefore(this.el, this.wrapper);
+    parent.removeChild(this.wrapper);
+};
+
+/**
+ * sticky factory
+ */
+function sticky(nodes, options) {
+
+    nodes = nodes || doc.querySelectorAll('[data-sticky]');
+
+    if (nodes.length === undefined) {
+        nodes = [nodes];
+    }
+
+    var i = 0,
+        len = nodes.length;
+
+    for (i; i < len; i += 1) {
+        sticky.collection.push(new Sticky(nodes[i], options));
+    }
+
+    return this;
+}
+
+sticky.collection = [];
+
+sticky.destroy = function (node) {
+
+    var i = 0,
+        len = sticky.collection.length,
+        instance;
+
+    for (i; i < len; i += 1) {
+        instance = sticky.collection[i];
+
+        if (instance.el === node) {
+            instance.destroy();
+            sticky.collection.splice(i, 1);
+            return;
+        }
+
+    }
 };
 
 /**
@@ -321,8 +378,7 @@ on(SCROLL, function () { scrolled = true; });
  */
 (function updateloop() {
     requestAnimFrame(updateloop);
-    update();
+    update(sticky);
 }());
 });
 require.alias("sticky/index.js", "sticky/index.js");
-
