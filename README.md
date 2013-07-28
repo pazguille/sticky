@@ -47,9 +47,19 @@ Elements stick to the top of the viewport when the user scrolls down.
 - `options.boundary`: (number) [optional] Pixels from top of window to the element's top.
 - `options.fn`: (function) [optional] Function to be executed when the element will be fixed.
 
+```js
+sticky(node, {
+   boundary: 200,
+   fn: function () {}
+});
+
 ### sticky.destroy(el)
 Elements stick to the top of the viewport when the user scrolls down.
 - `el`: (node) A given node.
+
+```js
+sticky.destroy(node);
+```
 
 ## Contact
 - Guillermo Paz (Frontend developer - JavaScript developer | Web standards lover)
