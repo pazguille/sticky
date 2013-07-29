@@ -35,7 +35,7 @@ function checkPosition(sticky) {
     }
 
     if (sticky.fixed && ((win.pageYOffset || docEl.scrollTop) + sticky.boundary) < sticky.originalOffsetTop) {
-        sticky.el.className = sticky.el.className.replace(/fixed/, '');
+        sticky.el.className = sticky.el.className.replace('fixed', '');
         sticky.fixed = false;
     }
 }
