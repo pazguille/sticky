@@ -1,3 +1,7 @@
+(function( window ) {
+
+'use strict';
+
 /**
  * Module dependencies.
  */
@@ -239,3 +243,5 @@ on( SCROLL, function () {
     requestAnimFrame( updateloop );
     update( sticky );
 }() );
+ 
+} )( this );
