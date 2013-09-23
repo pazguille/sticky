@@ -10,7 +10,6 @@ var win = window,
     docEl = doc.documentElement,
     on = win.addEventListener || win.attachEvent,
     SCROLL = (on === win.attachEvent) ? 'onscroll' : 'scroll',
-    scrolled = false,
     zIndexOffset = 0,
     requestAnimFrame = (function () {
         return win.requestAnimationFrame ||
@@ -126,14 +125,7 @@ function checkPosition( sticky ) {
 }
 
 function update( sticky ) {
-    if ( !scrolled )
-    {
-        return;
-    }
-
     sticky.collection.forEach( checkPosition );
-
-    scrolled = false;
 }
 
 /**
@@ -233,15 +225,7 @@ else
  * Events
  */
 on( SCROLL, function () {
-    scrolled = true;
-} );
-
-/**
- * requestAnimationFrame
- */
-( function updateloop() {
-    requestAnimFrame( updateloop );
     update( sticky );
-}() );
+} );
  
 } )( this );
