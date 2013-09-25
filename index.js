@@ -66,6 +66,10 @@ function checkPosition( sticky ) {
         {
             // insert a placeholder element into the dom so document height remains the same
             sticky.placeholder = doc.createElement( 'div' );
+            if ( sticky.el.id )
+            {
+                sticky.placeholder.id = sticky.options.placeholderClassName + '-' + sticky.el.id;
+            }
             sticky.placeholder.className = sticky.options.placeholderClassName;
             sticky.placeholder.style.height = sticky.el.offsetHeight + 'px';
             sticky.placeholder.style.position = 'relative';
