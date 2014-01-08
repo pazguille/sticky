@@ -20,7 +20,7 @@ var win = window,
 function checkPosition(sticky) {
     var offsetTop = sticky.el.getBoundingClientRect().top;
 
-    if (!sticky.fixed && offsetTop <= 0) {
+    if (!sticky.fixed && offsetTop <= sticky.boundary) {
 
         sticky.el.style.top = sticky.boundary + 'px';
         sticky.el.className = sticky.el.className + ' fixed';
@@ -40,7 +40,7 @@ function checkPosition(sticky) {
     }
 }
 
-function update(sticky) {
+function update() {
     // No changing, exit
     if (!scrolled) { return; }
 
@@ -181,5 +181,5 @@ on(SCROLL, function () { scrolled = true; });
  */
 (function updateloop() {
     requestAnimFrame(updateloop);
-    update(sticky);
+    update();
 }());
