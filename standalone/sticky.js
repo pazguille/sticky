@@ -170,11 +170,6 @@
     };
 
     /**
-     * Expose Sticky
-     */
-    exports = module.exports = sticky;
-
-    /**
      * Events
      */
     on(SCROLL, function () { scrolled = true; });
