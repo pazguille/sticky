@@ -2,7 +2,7 @@
   "name": "sticky",
   "repo": "pazguille/sticky",
   "description": "Stick elements to the top of the viewport when the user scrolls down.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Guille Paz <guille87paz@gmail.com>",
   "twitter": "@pazguille",
   "keywords": [
