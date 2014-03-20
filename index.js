@@ -102,6 +102,7 @@ Sticky.prototype.wrap = function () {
 
     this.wrapper = doc.createElement('div');
 
+    this.wrapper.className = 'sticky-wrapper';
     this.wrapper.style.width = this.el.offsetWidth + 'px';
     this.wrapper.style.height = this.el.offsetHeight + 'px';
     this.wrapper.style.position = 'relative';
