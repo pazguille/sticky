@@ -7,7 +7,7 @@ var win = window,
     on = win.addEventListener || win.attachEvent,
     SCROLL = (on === win.attachEvent) ? 'onscroll' : 'scroll',
     scrolled = false,
-    zIndex = 0,
+    zIndex = 99,
     requestAnimFrame = (function () {
         return win.requestAnimationFrame ||
             win.webkitRequestAnimationFrame ||
