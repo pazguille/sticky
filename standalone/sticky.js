@@ -97,6 +97,9 @@
 
         this.wrap();
 
+        // Store the sticky instance
+        this.el.sticky = this;
+
         return this;
     };
 
