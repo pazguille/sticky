@@ -11,9 +11,7 @@
     "scroll"
   ],
   "dependencies": {},
-  "development": {
-    "bestander/jasmine": "*"
-  },
+  "development": {},
   "license": "MIT",
   "main": "index.js",
   "scripts": [
